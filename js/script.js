@@ -62,23 +62,23 @@ class Todo {
   }
 
   deleteItem(elem) {
-        this.todoData.forEach(item => {
-            if (elem.key === item.key) {
-                this.todoData.delete(item.key);
-            }
-        });
-        this.render();
-    }
+    this.todoData.forEach(item => {
+        if (elem.key === item.key) {
+            this.todoData.delete(item.key);
+        }
+    });
+    this.render();
+  }
 
   completedItem(elem) {
     this.todoData.forEach(item => {
-        if (elem.key === item.key) {
-            if (item.completed) {
-                item.completed = false;
-            } else {
-                item.completed = true;
-            }
+      if (elem.key === item.key) {
+        if (item.completed) {
+          item.completed = false;
+        } else {
+          item.completed = true;
         }
+      }
     });
     this.render();
     }
