@@ -75,6 +75,7 @@ class Todo {
       if (elem.key === item.key) {
         if (item.completed) {
           item.completed = false;
+          console.log(item);
         } else {
           item.completed = true;
         }
@@ -85,13 +86,13 @@ class Todo {
 
   handler() {
     document.querySelector(".todo-container").addEventListener("click", elem => {
-        const target = elem.target;
-        const element = target.parentNode.parentNode;
-        if (target.matches(".todo-remove")) {
-          this.deleteItem(element);
-        } else if (target.matches(".todo-complete")) {
-          this.completedItem(element);
-        }
+      const target = elem.target;
+      const element = target.parentNode.parentNode;
+      if (target.matches(".todo-remove")) {
+        this.deleteItem(element);
+      } else if (target.matches(".todo-complete")) {
+        this.completedItem(element);
+      }
     });
 }
 
