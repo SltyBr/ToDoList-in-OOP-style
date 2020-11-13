@@ -1,12 +1,11 @@
 'use strict';
 
 class Todo {
-  constructor(form, input, todoList, todoCompleted, todoComplete) {
+  constructor(form, input, todoList, todoCompleted) {
     this.form = document.querySelector(form);
     this.input = document.querySelector(input);
     this.todoList = document.querySelector(todoList);
     this.todoCompleted = document.querySelector(todoCompleted);
-    this.todoComplete = document.querySelector(todoComplete);
     this.todoData = new Map(JSON.parse(localStorage.getItem('toDoList')));
   }
 
@@ -21,6 +20,8 @@ class Todo {
     this.todoData.forEach(this.createItem, (this));
     this.addToStorage();
     this.input.value = '';
+    this.todoComplete = document.querySelectorAll('.todo-complete');
+    this.todoItem = document.querySelectorAll('.todo-item');
   }
 
   createItem(todo){
@@ -53,7 +54,6 @@ class Todo {
       };
       this.todoData.set(newTodo.key, newTodo);
       this.render();
-      console.log(newTodo.completed);
     }
   }
 
@@ -61,24 +61,47 @@ class Todo {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   }
 
-  deleteItem() {
+  deleteItem(elem) {
+        this.todoData.forEach(item => {
+            if (elem.key === item.key) {
+                this.todoData.delete(item.key);
+            }
+        });
+        this.render();
+    }
 
-  }
-
-  completedItem() {
-
-  }
+  completedItem(elem) {
+    this.todoData.forEach(item => {
+        if (elem.key === item.key) {
+            if (item.completed) {
+                item.completed = false;
+            } else {
+                item.completed = true;
+            }
+        }
+    });
+    this.render();
+    }
 
   handler() {
-    
-  }
+    document.querySelector(".todo-container").addEventListener("click", elem => {
+        const target = elem.target;
+        const element = target.parentNode.parentNode;
+        if (target.matches(".todo-remove")) {
+          this.deleteItem(element);
+        } else if (target.matches(".todo-complete")) {
+          this.completedItem(element);
+        }
+    });
+}
 
   init() {
     this.form.addEventListener('submit', this.addTodo.bind(this));
     this.render();
+    this.handler();
   }
 }
 
-const todo = new Todo('.todo-control', '.header-input', '.todo-list', '.todo-completed', '.todo-complete');
+const todo = new Todo('.todo-control', '.header-input', '.todo-list', '.todo-completed');
 
 todo.init();
