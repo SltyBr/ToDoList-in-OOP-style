@@ -31,6 +31,7 @@ class Todo {
     li.insertAdjacentHTML('beforeend', `
         <span class="text-todo">${todo.value}</span>
         <div class="todo-buttons">
+          <button class="todo-edit"></button>
           <button class="todo-remove"></button>
           <button class="todo-complete"></button>
         </div>
@@ -70,6 +71,15 @@ class Todo {
     this.render();
   }
 
+  editItem(elem) {
+    this.todoData.forEach((item)=>{
+      if(elem.key === item.key){
+        elem.setAttribute('contenteditable', 'true');
+      }
+    });
+    this.render();
+  }
+
   completedItem(elem) {
     this.todoData.forEach(item => {
       if (elem.key === item.key) {
@@ -91,7 +101,9 @@ class Todo {
         this.deleteItem(element);
       } else if (target.matches(".todo-complete")) {
         this.completedItem(element);
-      } else if(1){}
+      } else if(target.matches(".todo-edit")){
+        this.editItem(element);
+      }
     });
 }
 
