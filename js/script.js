@@ -111,6 +111,9 @@ class Todo {
             this.editItem(element);
           }
         });
+        element.addEventListener("focusout", ()=>{
+            this.editItem(element);
+        });
       }
     });
 }
