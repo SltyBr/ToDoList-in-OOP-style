@@ -75,7 +75,6 @@ class Todo {
       if (elem.key === item.key) {
         if (item.completed) {
           item.completed = false;
-          console.log(item);
         } else {
           item.completed = true;
         }
@@ -92,7 +91,7 @@ class Todo {
         this.deleteItem(element);
       } else if (target.matches(".todo-complete")) {
         this.completedItem(element);
-      }
+      } else if(1){}
     });
 }
 
