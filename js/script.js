@@ -81,15 +81,6 @@ class Todo {
         this.render();
       }
     });
-/*     this.todoData.forEach((item)=>{
-      if(elem.key === item.key){
-        elem.setAttribute('contenteditable', 'true');
-      }
-      if(elem.textContent.trim() !== item.value){
-        item.value = elem.textContent.trim();
-        this.render();
-      }
-    }); */
   }
 
   completedItem(elem) {
@@ -115,6 +106,11 @@ class Todo {
         this.completedItem(element);
       } else if(target.matches(".todo-edit")){
         this.editItem(element);
+        element.addEventListener('keydown', (event)=>{
+          if(event.keyCode == 13){
+            this.editItem(element);
+          }
+        });
       }
     });
 }
