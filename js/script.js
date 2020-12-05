@@ -72,12 +72,24 @@ class Todo {
   }
 
   editItem(elem) {
-    this.todoData.forEach((item)=>{
+    const span = elem.querySelector('span');
+    span.setAttribute('contenteditable', 'true');
+    span.focus();
+    this.todoData.forEach(item => {
+      if(item.key === elem.key && elem.textContent.trim() !== item.value){
+        item.value = elem.textContent.trim();
+        this.render();
+      }
+    });
+/*     this.todoData.forEach((item)=>{
       if(elem.key === item.key){
         elem.setAttribute('contenteditable', 'true');
       }
-    });
-    this.render();
+      if(elem.textContent.trim() !== item.value){
+        item.value = elem.textContent.trim();
+        this.render();
+      }
+    }); */
   }
 
   completedItem(elem) {
